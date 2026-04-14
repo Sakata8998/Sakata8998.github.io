@@ -16,7 +16,7 @@
       "I read — Bengali literature, English fiction, the occasional dense non-fiction that makes me feel smart for about two pages. I write here to think more clearly.",
       "This is my journal. Also my portfolio. Sometimes both at the same time."
     ],
-    
+    currentlyReading: "গোরা — রবীন্দ্রনাথ ঠাকুর",
     categories: [
       "Book Review",
       "Summary & Notes",
@@ -77,6 +77,19 @@
 
   .posts-section { max-width:680px; margin:0 auto; padding:0 2rem 6rem; }
   .posts-label { font-family:var(--sans); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); padding-bottom:.9rem; border-bottom:1px solid var(--border); }
+  .search-input {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    padding: 10px 18px;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    background: var(--surface);
+    width: 100%;
+    max-width: 340px;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  }
+  .search-input:focus { border-color: var(--accent); outline: none; }
 
   .post-row { display:grid; grid-template-columns:68px 1fr; gap:1.5rem; padding:1.6rem 0; border-bottom:1px solid var(--border); cursor:pointer; }
   .post-row:hover .p-title { color:var(--accent); }
@@ -88,8 +101,40 @@
   .empty-msg strong { display:block; font-weight:normal; color:var(--text); font-size:1.05rem; margin-bottom:.4rem; }
 
   #postView { max-width:680px; margin:0 auto; padding:2.5rem 2rem 6rem; }
-  .back-btn { background:none; border:none; font-family:var(--sans); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); cursor:pointer; padding:0; display:inline-flex; align-items:center; gap:6px; margin-bottom:2.75rem; transition:color .15s; }
+  .post-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:2.75rem; }
+  .back-btn { background:none; border:none; font-family:var(--sans); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); cursor:pointer; padding:0; display:inline-flex; align-items:center; gap:6px; transition:color .15s; }
   .back-btn:hover { color:var(--accent); }
+  .post-actions { display:flex; gap:8px; }
+  .action-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .action-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .action-btn.danger {
+    color: #c22;
+    border-color: #f88;
+  }
+  .action-btn.danger:hover {
+    background: #c22;
+    color: #fff;
+    border-color: #c22;
+  }
+
   .s-cat { font-family:var(--sans); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:.8rem; }
   .s-title { font-size:clamp(1.6rem,4vw,2.15rem); font-weight:normal; line-height:1.22; margin-bottom:1.4rem; }
   .s-meta { font-family:var(--sans); font-size:12px; color:var(--faint); border-top:1px solid var(--border); padding-top:.9rem; margin-bottom:2.75rem; }
@@ -98,6 +143,14 @@
   .s-body h2 { font-size:1.25rem; font-weight:normal; margin:2.5rem 0 .9rem; }
   .s-body h3 { font-size:1rem; font-weight:normal; margin:2rem 0 .7rem; color:var(--muted); }
   .s-body blockquote { border-left:2px solid var(--accent); padding:.2rem 0 .2rem 1.4rem; margin:1.8rem 0; color:var(--muted); font-style:italic; font-size:16px; }
+  .s-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(139,69,19,.08);
+  }
 
   #aboutView { max-width:560px; margin:4rem auto; padding:0 2rem 6rem; }
   #aboutView h2 { font-size:1.75rem; font-weight:normal; margin-bottom:2rem; }
@@ -115,6 +168,34 @@
   .lang-toggle { display:flex; gap:8px; }
   .lang-opt { border:1px solid var(--border); border-radius:4px; padding:8px 20px; font-family:var(--sans); font-size:12px; cursor:pointer; background:none; color:var(--muted); transition:all .15s; }
   .lang-opt.sel { border-color:var(--accent); background:var(--accent-bg); color:var(--accent); font-weight:600; }
+  
+  /* Editor toolbar */
+  .editor-toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    padding: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .toolbar-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .toolbar-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
   .pub-btn { background:var(--accent); color:#fff; border:none; padding:.82rem 2rem; font-family:var(--sans); font-size:11px; letter-spacing:.1em; text-transform:uppercase; border-radius:4px; cursor:pointer; transition:background .15s; }
   .pub-btn:hover { background:var(--accent-hover); }
   .can-btn { background:none; border:1px solid var(--border); color:var(--muted); padding:.82rem 1.5rem; font-family:var(--sans); font-size:11px; letter-spacing:.1em; text-transform:uppercase; border-radius:4px; cursor:pointer; margin-left:.7rem; }
@@ -128,6 +209,8 @@
     .post-row { grid-template-columns:1fr; gap:.2rem; }
     .p-date { font-size:10px; padding-top:0; }
     .nav-links { gap:1rem; }
+    .post-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .post-actions { width: 100%; justify-content: flex-end; }
   }
 </style>
 </head>
@@ -152,12 +235,19 @@
   <div class="filter-bar" id="filterBar"></div>
   <div class="posts-section">
     <p class="posts-label">All writing</p>
+    <input id="searchInput" type="text" class="search-input" placeholder="🔎 Search titles or content...">
     <div id="postsList"></div>
   </div>
 </div>
 
 <div id="postView" class="view">
-  <button class="back-btn" onclick="show('home')">← All writing</button>
+  <div class="post-header">
+    <button class="back-btn" onclick="show('home')">← All writing</button>
+    <div class="post-actions">
+      <button class="action-btn" onclick="editCurrentPost()">✏️ Edit</button>
+      <button class="action-btn danger" onclick="deleteCurrentPost()">🗑 Delete</button>
+    </div>
+  </div>
   <p class="s-cat" id="s_cat"></p>
   <h1 class="s-title" id="s_h1"></h1>
   <p class="s-meta" id="s_meta"></p>
@@ -172,6 +262,7 @@
 
 <div id="editorView" class="view">
   <p class="editor-label">New entry</p>
+  
   <div class="fg">
     <label class="fl">Language</label>
     <div class="lang-toggle">
@@ -179,22 +270,33 @@
       <button class="lang-opt" id="langBn" onclick="selLang('bn')">বাংলা</button>
     </div>
   </div>
+  
   <div class="fg">
     <label class="fl">Category</label>
     <select class="fs" id="inputCat"></select>
   </div>
+  
   <div class="fg">
     <label class="fl">Title</label>
     <input class="fi" type="text" id="inputTitle" placeholder="What are you writing about?">
   </div>
+  
   <div class="fg">
     <label class="fl">Body</label>
-    <textarea class="ft" id="inputBody" placeholder="Start writing here.&#10;&#10;Blank line = new paragraph&#10;>> text = blockquote&#10;## text = heading"></textarea>
-    <p class="fh">Blank line = paragraph &nbsp;·&nbsp; >> = blockquote &nbsp;·&nbsp; ## = heading</p>
+    <div class="editor-toolbar">
+      <button type="button" class="toolbar-btn" onclick="insertMarkdown('## ')">## Heading</button>
+      <button type="button" class="toolbar-btn" onclick="insertMarkdown('### ')">### Subheading</button>
+      <button type="button" class="toolbar-btn" onclick="insertMarkdown('>> ')">» Blockquote</button>
+      <button type="button" class="toolbar-btn" onclick="triggerImageUpload()">📷 Upload Image</button>
+      <input type="file" id="imageUpload" accept="image/*" style="display:none;">
+    </div>
+    <textarea class="ft" id="inputBody" placeholder="Start writing here.&#10;&#10;Blank line = new paragraph&#10;>> text = blockquote&#10;## text = heading&#10;![alt](image) = image"></textarea>
+    <p class="fh">Blank line = paragraph &nbsp;·&nbsp; &gt;&gt; = blockquote &nbsp;·&nbsp; ## / ### = headings &nbsp;·&nbsp; Upload or paste image URLs</p>
   </div>
+  
   <div>
-    <button class="pub-btn" onclick="publish()">Publish</button>
-    <button class="can-btn" onclick="show('home')">Cancel</button>
+    <button class="pub-btn" id="publishBtn" onclick="publish()">Publish</button>
+    <button class="can-btn" onclick="cancelEditor()">Cancel</button>
   </div>
 </div>
 
@@ -203,7 +305,23 @@
 <script>
   const C = BLOG_CONFIG;
   const MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  let lang = 'en', filter = 'All';
+  
+  // Global state
+  let lang = 'en';
+  let filter = 'All';
+  let searchTerm = '';
+  let posts = [
+    {
+      id: 1,
+      title: "First entry — why I am writing this",
+      cat: "Personal",
+      lang: "en",
+      date: new Date().toISOString(),
+      body: "Delete this post and write your own.\n\nClick + Write in the navigation above. Pick a category, choose your language, and start writing.\n\n>> A journal is not about recording what happened. It is about figuring out what it meant.\n\nThis is Husayn's Journal. Welcome."
+    }
+  ];
+  let editingId = null;
+  let currentPostId = null;
 
   // Boot
   document.getElementById('navBrand').textContent = C.blogName;
@@ -219,20 +337,46 @@
   const cs = document.getElementById('inputCat');
   C.categories.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; cs.appendChild(o); });
 
-  function fmt(d) { const dt = new Date(d); return `${dt.getDate()} ${MO[dt.getMonth()]} ${dt.getFullYear()}`; }
-  function pill(l) { return l==='en' ? '<span class="lang-pill len">EN</span>' : '<span class="lang-pill lbn">বাং</span>'; }
-  function expt(b) { const w = b.replace(/^(>>|##|###)\s*/gm,'').replace(/\n/g,' ').trim().split(/\s+/); return w.slice(0,28).join(' ')+(w.length>28?'…':''); }
+  // Load saved posts from localStorage (persists across refreshes)
+  const saved = localStorage.getItem('husaynPosts');
+  if (saved) posts = JSON.parse(saved);
 
-  let posts = [
-    {
-      id: 1,
-      title: "First entry — why I am writing this",
-      cat: "Personal",
-      lang: "en",
-      date: new Date().toISOString(),
-      body: "Delete this post and write your own.\n\nClick + Write in the navigation above. Pick a category, choose your language, and start writing.\n\n>> A journal is not about recording what happened. It is about figuring out what it meant.\n\nThis is Husayn's Journal. Welcome."
-    }
-  ];
+  function fmt(d) { 
+    const dt = new Date(d); 
+    return `${dt.getDate()} ${MO[dt.getMonth()]} ${dt.getFullYear()}`; 
+  }
+  function pill(l) { 
+    return l==='en' ? '<span class="lang-pill len">EN</span>' : '<span class="lang-pill lbn">বাং</span>'; 
+  }
+  function expt(b) { 
+    const w = b.replace(/^(>>|##|###|\!\[.*?\]\(.*?\))/gm,'').replace(/\n/g,' ').trim().split(/\s+/); 
+    return w.slice(0,28).join(' ')+(w.length>28?'…':''); 
+  }
+
+  // Save posts to localStorage
+  function savePosts() {
+    localStorage.setItem('husaynPosts', JSON.stringify(posts));
+  }
+
+  // Enhanced body parser with image support
+  function parseBody(raw) {
+    return raw.split(/\n{2,}/).filter(s=>s.trim()).map(b=>{
+      const t = b.trim();
+      if(t.startsWith('## ')) return `<h2>${t.slice(3)}</h2>`;
+      if(t.startsWith('### ')) return `<h3>${t.slice(4)}</h3>`;
+      if(t.startsWith('>> ')) return `<blockquote>${t.slice(3)}</blockquote>`;
+      
+      // Image support: ![alt text](url or data:base64)
+      const imgMatch = t.match(/^\!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (imgMatch) {
+        const alt = imgMatch[1] || 'Image';
+        const url = imgMatch[2];
+        return `<img src="${url}" alt="${alt}" loading="lazy">`;
+      }
+      
+      return `<p>${t.replace(/\n/g,' ')}</p>`;
+    }).join('');
+  }
 
   function buildFilters() {
     const bar = document.getElementById('filterBar');
@@ -249,12 +393,30 @@
   function renderList() {
     const el = document.getElementById('postsList');
     el.innerHTML = '';
-    const list = filter === 'All' ? posts : posts.filter(p => p.cat === filter);
+    
+    let list = filter === 'All' ? [...posts] : posts.filter(p => p.cat === filter);
+    
+    // Search filter
+    if (searchTerm && searchTerm.trim().length > 0) {
+      const term = searchTerm.toLowerCase().trim();
+      list = list.filter(p => 
+        (p.title || '').toLowerCase().includes(term) || 
+        (p.body || '').toLowerCase().includes(term)
+      );
+    }
+    
     if (!list.length) {
-      el.innerHTML = '<div class="empty-msg"><strong>Nothing here yet.</strong>Click + Write to publish your first post.</div>';
+      const msg = searchTerm 
+        ? `<div class="empty-msg"><strong>No matching posts.</strong>Try different keywords or clear the search.</div>` 
+        : `<div class="empty-msg"><strong>Nothing here yet.</strong>Click + Write to publish your first post.</div>`;
+      el.innerHTML = msg;
       return;
     }
-    [...list].reverse().forEach(p => {
+    
+    // Always sort newest first (robust after delete/edit)
+    list.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    list.forEach(p => {
       const r = document.createElement('div');
       r.className = 'post-row';
       r.onclick = () => openPost(p.id);
@@ -263,23 +425,54 @@
     });
   }
 
-  function parseBody(raw) {
-    return raw.split(/\n{2,}/).filter(s=>s.trim()).map(b=>{
-      const t = b.trim();
-      if(t.startsWith('## ')) return `<h2>${t.slice(3)}</h2>`;
-      if(t.startsWith('### ')) return `<h3>${t.slice(4)}</h3>`;
-      if(t.startsWith('>> ')) return `<blockquote>${t.slice(3)}</blockquote>`;
-      return `<p>${t.replace(/\n/g,' ')}</p>`;
-    }).join('');
-  }
-
   function openPost(id) {
-    const p = posts.find(x=>x.id===id); if(!p) return;
+    currentPostId = id;
+    const p = posts.find(x=>x.id===id); 
+    if(!p) return;
     document.getElementById('s_cat').innerHTML = p.cat + pill(p.lang);
     document.getElementById('s_h1').textContent = p.title;
     document.getElementById('s_meta').textContent = fmt(p.date) + ' — ' + C.authorName;
     document.getElementById('s_body').innerHTML = parseBody(p.body);
-    show('post'); window.scrollTo(0,0);
+    show('post'); 
+    window.scrollTo(0,0);
+  }
+
+  // Edit / Delete helpers
+  function editCurrentPost() {
+    if (!currentPostId) return;
+    editPost(currentPostId);
+  }
+  
+  function deleteCurrentPost() {
+    if (!currentPostId) return;
+    deletePost(currentPostId);
+  }
+  
+  function editPost(id) {
+    const p = posts.find(x => x.id === id);
+    if (!p) return;
+    
+    editingId = id;
+    document.getElementById('inputTitle').value = p.title;
+    document.getElementById('inputBody').value = p.body;
+    document.getElementById('inputCat').value = p.cat;
+    lang = p.lang;
+    selLang(lang);
+    
+    // Update button text
+    document.getElementById('publishBtn').textContent = 'Update Post';
+    
+    show('editor');
+    window.scrollTo(0,0);
+  }
+  
+  function deletePost(id) {
+    if (!confirm('🗑 Permanently delete this post? This cannot be undone.')) return;
+    
+    posts = posts.filter(p => p.id !== id);
+    savePosts();
+    currentPostId = null;
+    show('home');
   }
 
   function selLang(l) {
@@ -288,27 +481,112 @@
     document.getElementById('langBn').classList.toggle('sel', l==='bn');
   }
 
+  // Insert markdown helpers
+  function insertAtCursor(text) {
+    const ta = document.getElementById('inputBody');
+    if (!ta) return;
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    ta.value = ta.value.substring(0, start) + text + ta.value.substring(end);
+    ta.focus();
+    ta.selectionStart = ta.selectionEnd = start + text.length;
+  }
+  
+  function insertMarkdown(md) {
+    insertAtCursor(md);
+  }
+  
+  function triggerImageUpload() {
+    document.getElementById('imageUpload').click();
+  }
+
   function publish() {
     const t = document.getElementById('inputTitle').value.trim();
     const b = document.getElementById('inputBody').value.trim();
     const c = document.getElementById('inputCat').value;
+    
     if(!t) { alert('Title দাও।'); return; }
     if(!b) { alert('কিছু লেখো।'); return; }
-    posts.push({ id: Date.now(), title:t, cat:c, lang, date:new Date().toISOString(), body:b });
-    document.getElementById('inputTitle').value='';
-    document.getElementById('inputBody').value='';
-    renderList(); show('home'); window.scrollTo(0,0);
+    
+    if (editingId !== null) {
+      // Update existing post
+      const post = posts.find(x => x.id === editingId);
+      if (post) {
+        post.title = t;
+        post.body = b;
+        post.cat = c;
+        post.lang = lang;
+        post.date = new Date().toISOString(); // mark as edited
+      }
+      editingId = null;
+      document.getElementById('publishBtn').textContent = 'Publish';
+    } else {
+      // New post
+      posts.push({ 
+        id: Date.now(), 
+        title: t, 
+        cat: c, 
+        lang: lang, 
+        date: new Date().toISOString(), 
+        body: b 
+      });
+    }
+    
+    savePosts();
+    document.getElementById('inputTitle').value = '';
+    document.getElementById('inputBody').value = '';
+    renderList(); 
+    show('home'); 
+    window.scrollTo(0,0);
+  }
+  
+  function cancelEditor() {
+    editingId = null;
+    document.getElementById('inputTitle').value = '';
+    document.getElementById('inputBody').value = '';
+    document.getElementById('publishBtn').textContent = 'Publish';
+    show('home');
   }
 
   const VIEWS = { home:'homeView', post:'postView', about:'aboutView', editor:'editorView' };
   function show(n) {
     Object.values(VIEWS).forEach(id=>document.getElementById(id).classList.remove('active'));
     document.getElementById(VIEWS[n]).classList.add('active');
-    if(n==='home') renderList();
+    
+    if (n !== 'editor') editingId = null;
+    if (n === 'home') renderList();
+    
     window.scrollTo(0,0);
   }
 
-  buildFilters(); renderList();
+  // Final boot: build UI + listeners
+  buildFilters();
+  renderList();
+  
+  // Search listener
+  const searchInputEl = document.getElementById('searchInput');
+  searchInputEl.addEventListener('input', (e) => {
+    searchTerm = e.target.value;
+    renderList();
+  });
+  
+  // Image upload handler (base64 embedding - fully self-contained)
+  const imageUploadEl = document.getElementById('imageUpload');
+  imageUploadEl.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const dataUrl = ev.target.result;
+      const alt = prompt('Alt text (for screen readers and SEO):', file.name.split('.')[0]) || 'Image';
+      const syntax = `![${alt}](${dataUrl})`;
+      insertAtCursor('\n\n' + syntax + '\n\n');
+      // Reset input
+      e.target.value = '';
+    };
+    reader.readAsDataURL(file);
+  });
 </script>
 </body>
 </html>
