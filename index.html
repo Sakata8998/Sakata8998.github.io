@@ -6,20 +6,18 @@
 <title>Husayn's Journal</title>
 <style>
   :root {
-    --bg: #f7f4ef;
-    --surface: rgba(255,255,255,.88);
+    --bg: #f7f3ed;
+    --surface: rgba(255,255,255,.9);
     --surface-strong: #ffffff;
     --text: #171717;
-    --muted: #66625d;
+    --muted: #655f58;
     --faint: #9a948d;
-    --border: #e5ded4;
+    --border: #e6ddd2;
     --accent: #8b4513;
-    --accent-2: #c27c41;
     --accent-bg: #fdf1e7;
     --danger: #b42318;
     --danger-bg: #fff1f0;
-    --success: #146c43;
-    --shadow: 0 12px 40px rgba(20, 20, 20, .06);
+    --shadow: 0 16px 40px rgba(20,20,20,.07);
     --serif: Georgia, 'Times New Roman', serif;
     --sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     --radius: 18px;
@@ -30,7 +28,7 @@
     margin: 0;
     min-height: 100vh;
     background:
-      radial-gradient(circle at top, rgba(139,69,19,.08), transparent 35%),
+      radial-gradient(circle at top, rgba(139,69,19,.08), transparent 36%),
       linear-gradient(180deg, #fbf9f6 0%, var(--bg) 100%);
     color: var(--text);
     font-family: var(--serif);
@@ -40,8 +38,8 @@
   a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
 
-  .app-shell {
-    max-width: 1140px;
+  .shell {
+    max-width: 1180px;
     margin: 0 auto;
     padding: 18px;
   }
@@ -57,10 +55,10 @@
     padding: 14px 16px;
     margin-bottom: 18px;
     background: var(--surface);
-    border: 1px solid rgba(229,222,212,.9);
+    border: 1px solid rgba(230,221,210,.95);
     border-radius: 22px;
     box-shadow: var(--shadow);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
   }
   .brand {
     display: flex;
@@ -90,10 +88,11 @@
     justify-content: flex-end;
   }
   .nav button,
-  .pill-btn,
-  .ghost-btn,
-  .danger-btn,
-  .primary-btn {
+  .btn,
+  .btn-ghost,
+  .btn-danger,
+  .btn-primary,
+  .chip-btn {
     border: 1px solid var(--border);
     background: var(--surface-strong);
     color: var(--text);
@@ -103,44 +102,53 @@
     transition: transform .15s ease, border-color .15s ease, background .15s ease, color .15s ease;
   }
   .nav button:hover,
-  .pill-btn:hover,
-  .ghost-btn:hover,
-  .danger-btn:hover,
-  .primary-btn:hover { transform: translateY(-1px); }
-  .nav .primary-btn,
-  .primary-btn {
+  .btn:hover,
+  .btn-ghost:hover,
+  .btn-danger:hover,
+  .btn-primary:hover,
+  .chip-btn:hover { transform: translateY(-1px); }
+  .btn-primary,
+  .nav .btn-primary {
     background: var(--accent);
-    color: white;
+    color: #fff;
     border-color: var(--accent);
   }
-  .nav .primary-btn:hover,
-  .primary-btn:hover { background: #6f3611; }
-  .ghost-btn { background: transparent; }
-  .danger-btn {
+  .btn-primary:hover,
+  .nav .btn-primary:hover { background: #6f3611; }
+  .btn-ghost { background: transparent; }
+  .btn-danger {
     background: var(--danger-bg);
     color: var(--danger);
     border-color: rgba(180,35,24,.2);
   }
+  .btn-lock {
+    background: rgba(255,255,255,.7);
+  }
 
   .view { display: none; }
   .view.active { display: block; }
+  .admin-only.hidden { display: none !important; }
 
   .grid-home {
     display: grid;
-    grid-template-columns: minmax(0, 1.55fr) minmax(300px, .9fr);
+    grid-template-columns: minmax(0, 1.55fr) minmax(280px, .85fr);
     gap: 18px;
     align-items: start;
   }
+  .grid-two {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(260px,.8fr);
+    gap: 18px;
+  }
   .card {
     background: var(--surface);
-    border: 1px solid rgba(229,222,212,.95);
+    border: 1px solid rgba(230,221,210,.95);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     backdrop-filter: blur(10px);
   }
-
-  .hero {
-    padding: 30px;
+  .hero, .panel, .content-card {
+    padding: 24px;
   }
   .kicker {
     font-family: var(--sans);
@@ -161,7 +169,7 @@
     margin: 0;
     color: var(--muted);
     font-size: 15.5px;
-    max-width: 68ch;
+    max-width: 70ch;
   }
   .hero-meta {
     display: flex;
@@ -174,27 +182,62 @@
     font-size: 12px;
     color: var(--muted);
     border: 1px solid var(--border);
-    background: rgba(255,255,255,.8);
+    background: rgba(255,255,255,.82);
     padding: 8px 12px;
     border-radius: 999px;
   }
-
-  .side-panel { padding: 22px; }
-  .side-panel h3 {
+  .reading-box {
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(139,69,19,.16);
+    background: rgba(253,241,231,.7);
+  }
+  .reading-box h3,
+  .panel h3,
+  .section-head h2,
+  .section-head h3 {
     margin: 0 0 12px;
     font-family: var(--sans);
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: .13em;
     color: var(--faint);
   }
-  .inline-field {
+  .reading-box p { margin: 0; color: var(--muted); }
+
+  .panel .small-note,
+  .helper-box,
+  .post-meta,
+  .empty-state,
+  .footer,
+  .hint {
+    font-family: var(--sans);
+  }
+  .small-note,
+  .hint {
+    color: var(--faint);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .helper-box {
+    padding: 16px;
+    border: 1px dashed rgba(139,69,19,.24);
+    border-radius: 18px;
+    background: rgba(253,241,231,.55);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .helper-box strong { color: var(--text); }
+
+  .inline-field,
+  .field {
     display: grid;
     gap: 8px;
     margin-bottom: 14px;
   }
-  .inline-field label,
-  .field label,
+  label,
   .section-label {
     font-family: var(--sans);
     font-size: 11px;
@@ -202,42 +245,22 @@
     letter-spacing: .1em;
     color: var(--faint);
   }
-  .inline-field input,
-  .inline-field textarea,
-  .field input,
-  .field textarea,
-  .field select,
-  .setting-input,
-  .setting-textarea {
+  input, textarea, select {
     width: 100%;
     border: 1px solid var(--border);
-    background: rgba(255,255,255,.96);
+    background: rgba(255,255,255,.97);
     border-radius: 14px;
     padding: 12px 14px;
     color: var(--text);
     outline: none;
     transition: border-color .15s ease, box-shadow .15s ease;
   }
-  .inline-field input:focus,
-  .inline-field textarea:focus,
-  .field input:focus,
-  .field textarea:focus,
-  .field select:focus,
-  .setting-input:focus,
-  .setting-textarea:focus {
+  input:focus, textarea:focus, select:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(139,69,19,.12);
   }
-  .inline-field textarea,
-  .field textarea,
-  .setting-textarea { min-height: 110px; resize: vertical; }
-  .small-note {
-    margin-top: 8px;
-    color: var(--faint);
-    font-family: var(--sans);
-    font-size: 12px;
-    line-height: 1.5;
-  }
+  textarea { min-height: 220px; resize: vertical; }
+  .field textarea.tall { min-height: 300px; }
 
   .section-head {
     display: flex;
@@ -246,23 +269,21 @@
     gap: 14px;
     margin-bottom: 14px;
   }
-  .section-head h2,
-  .section-head h3 {
-    margin: 0;
-    font-family: var(--sans);
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: .13em;
-    color: var(--faint);
-  }
-  .filters {
+  .section-head h2 { margin: 0; }
+  .filters,
+  .mini-row,
+  .tag-row,
+  .chip-row,
+  .nav-side {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    align-items: center;
   }
   .filter-btn,
   .tag-btn,
-  .lang-btn {
+  .lang-btn,
+  .chip-btn {
     border: 1px solid var(--border);
     background: transparent;
     color: var(--muted);
@@ -275,7 +296,8 @@
   }
   .filter-btn.active,
   .tag-btn.active,
-  .lang-btn.active {
+  .lang-btn.active,
+  .chip-btn.active {
     background: var(--accent-bg);
     border-color: rgba(139,69,19,.2);
     color: var(--accent);
@@ -288,12 +310,12 @@
     grid-template-columns: 110px minmax(0,1fr) auto;
     gap: 16px;
     padding: 18px 22px;
-    border-top: 1px solid rgba(229,222,212,.9);
+    border-top: 1px solid rgba(230,221,210,.9);
     cursor: pointer;
     align-items: start;
   }
   .post-row:first-child { border-top: none; }
-  .post-row:hover { background: rgba(255,255,255,.6); }
+  .post-row:hover { background: rgba(255,255,255,.65); }
   .post-date {
     font-family: var(--sans);
     font-size: 12px;
@@ -330,30 +352,22 @@
     font-size: 11px;
     border: 1px solid var(--border);
     color: var(--muted);
-    background: rgba(255,255,255,.7);
+    background: rgba(255,255,255,.72);
   }
   .badge.cat {
     color: var(--accent);
     background: var(--accent-bg);
     border-color: rgba(139,69,19,.15);
   }
-  .badge.lang {
-    text-transform: uppercase;
-    letter-spacing: .05em;
-  }
-  .post-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
+  .badge.lang { text-transform: uppercase; letter-spacing: .05em; }
+  .post-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
   .post-actions button { padding: 8px 11px; }
 
   .empty-state {
     padding: 40px 22px;
     color: var(--muted);
     text-align: center;
-    font-family: var(--sans);
+    font-size: 13px;
   }
   .empty-state strong {
     display: block;
@@ -367,8 +381,9 @@
   .post-view,
   .editor-view,
   .settings-view,
-  .about-view {
-    max-width: 920px;
+  .about-view,
+  .archive-view {
+    max-width: 980px;
     margin: 0 auto;
   }
   .content-card { padding: 26px; }
@@ -397,11 +412,7 @@
   }
   .back-btn:hover { color: var(--accent); border-color: rgba(139,69,19,.2); }
 
-  .post-hero {
-    display: grid;
-    grid-template-columns: minmax(0,1fr);
-    gap: 18px;
-  }
+  .post-hero { display: grid; gap: 18px; }
   .post-cover {
     border-radius: 20px;
     overflow: hidden;
@@ -418,7 +429,6 @@
     letter-spacing: -0.03em;
   }
   .post-meta {
-    font-family: var(--sans);
     font-size: 12px;
     color: var(--faint);
     margin-top: 10px;
@@ -459,43 +469,30 @@
   }
   .inline-image img { width: 100%; height: auto; }
 
-  .editor-grid,
-  .settings-grid {
+  .layout-2col {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(290px, .8fr);
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
     gap: 18px;
   }
-  .field { margin-bottom: 14px; }
-  .field textarea { min-height: 280px; resize: vertical; }
-  .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  .field textarea.code-help {
+    min-height: 160px;
   }
-  .mini-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .lang-group { display: flex; gap: 8px; flex-wrap: wrap; }
-  .helper-box {
+  .help-card {
     padding: 16px;
-    border: 1px dashed rgba(139,69,19,.24);
     border-radius: 18px;
-    background: rgba(253,241,231,.6);
+    background: rgba(253,241,231,.68);
+    border: 1px dashed rgba(139,69,19,.2);
     color: var(--muted);
-    font-family: var(--sans);
+    line-height: 1.7;
     font-size: 13px;
-    line-height: 1.65;
   }
-  .helper-box strong { color: var(--text); }
-
+  .help-card strong { color: var(--text); }
   .settings-section {
     padding: 18px;
     margin-bottom: 16px;
-    border: 1px solid rgba(229,222,212,.9);
+    border: 1px solid rgba(230,221,210,.95);
     border-radius: 18px;
-    background: rgba(255,255,255,.85);
+    background: rgba(255,255,255,.86);
   }
   .settings-section h3 {
     margin: 0 0 14px;
@@ -504,13 +501,6 @@
     text-transform: uppercase;
     letter-spacing: .13em;
     color: var(--faint);
-  }
-  .category-row,
-  .tag-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 10px;
   }
   .chip {
     display: inline-flex;
@@ -533,51 +523,73 @@
     font-size: 16px;
     line-height: 1;
   }
+  .archive-list {
+    display: grid;
+    gap: 10px;
+  }
+  .archive-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(255,255,255,.82);
+    cursor: pointer;
+  }
+  .archive-item:hover { border-color: rgba(139,69,19,.2); }
+  .archive-item strong { display:block; font-size: 14px; font-weight: 500; }
+  .archive-item span { color: var(--faint); font-size: 12px; font-family: var(--sans); }
 
   .footer {
     margin-top: 18px;
     padding: 18px 10px 30px;
     text-align: center;
     color: var(--faint);
-    font-family: var(--sans);
     font-size: 12px;
   }
 
   .hidden { display: none !important; }
-  .muted { color: var(--muted); }
   .spacer { height: 8px; }
 
-  @media (max-width: 920px) {
+  @media (max-width: 960px) {
     .grid-home,
-    .editor-grid,
-    .settings-grid { grid-template-columns: 1fr; }
+    .layout-2col { grid-template-columns: 1fr; }
     .post-row { grid-template-columns: 88px minmax(0,1fr); }
     .post-actions { grid-column: 1 / -1; justify-content: flex-start; padding-top: 4px; }
   }
-  @media (max-width: 620px) {
-    .app-shell { padding: 10px; }
-    .topbar { top: 8px; padding: 12px; }
-    .hero, .side-panel, .content-card, .settings-section { padding: 18px; }
+  @media (max-width: 640px) {
+    .shell { padding: 10px; }
+    .topbar { top: 8px; padding: 12px; flex-direction: column; align-items: stretch; }
+    .nav { justify-content: flex-start; }
+    .hero, .panel, .content-card { padding: 18px; }
     .post-row { grid-template-columns: 1fr; gap: 10px; }
     .post-date { padding-top: 0; }
-    .row { grid-template-columns: 1fr; }
-    .topbar { flex-direction: column; align-items: stretch; }
-    .nav { justify-content: flex-start; }
+    .section-head { flex-direction: column; align-items: flex-start; }
+    .back-row { align-items: flex-start; }
   }
 </style>
 </head>
 <body>
-<div class="app-shell">
+<div class="shell">
   <header class="topbar">
     <div class="brand" id="brandBtn" title="Go home">
       <strong id="brandName">Husayn's Journal</strong>
       <span id="brandTag">reading, thinking, writing</span>
     </div>
-    <nav class="nav">
+    <nav class="nav" id="publicNav">
       <button onclick="showView('home')">Writing</button>
       <button onclick="showView('about')">About</button>
-      <button class="primary-btn" onclick="startNewPost()">+ Write</button>
+      <button onclick="showView('archive')">Archive</button>
+      <button class="btn-lock" onclick="unlockAdmin()">Unlock</button>
+    </nav>
+    <nav class="nav hidden" id="adminNav">
+      <button onclick="showView('home')">Writing</button>
+      <button onclick="showView('about')">About</button>
+      <button onclick="showView('archive')">Archive</button>
+      <button class="btn-primary" onclick="startNewPost()">+ Write</button>
       <button onclick="showView('settings')">Customize</button>
+      <button class="btn-lock" onclick="lockAdmin()">Lock</button>
     </nav>
   </header>
 
@@ -591,8 +603,9 @@
             <p id="heroDesc">Book reviews, translations, politics, and the occasional honest thought. Written in Bangla and English — sometimes both at once.</p>
             <div class="hero-meta">
               <span class="meta-chip">Author: <span id="authorNameChip">Husayn</span></span>
-              <span class="meta-chip">Reading now: <span id="currentlyReadingHome">Edit in Customize</span></span>
+              <span class="meta-chip">Currently reading: <span id="currentlyReadingHome">Set this in Customize</span></span>
               <span class="meta-chip">Posts: <span id="postCount">0</span></span>
+              <span class="meta-chip">Public view: read only</span>
             </div>
           </div>
 
@@ -601,28 +614,30 @@
               <h2>All writing</h2>
               <div class="filters" id="filterBar"></div>
             </div>
+            <div style="padding: 0 22px 14px;">
+              <div class="field" style="margin-top: 12px;">
+                <label>Search</label>
+                <input id="searchInput" type="text" placeholder="Search title, category, tags, or text" oninput="renderPosts()" />
+              </div>
+            </div>
             <div class="post-list" id="postsList"></div>
           </div>
         </div>
 
-        <aside class="card side-panel">
-          <h3>Quick info</h3>
-          <div class="small-note" style="margin-top:0">
-            This is a private-style personal blog layout with local saving. Your posts, settings, and categories stay in the browser unless you export or clear data.
+        <aside class="card panel">
+          <h3>Now</h3>
+          <div class="reading-box">
+            <h3>Currently reading</h3>
+            <p id="readingBoxText">Set in Customize.</p>
           </div>
           <div class="spacer"></div>
-          <div class="helper-box">
-            <strong>What you can customize</strong><br>
-            Blog name, tagline, hero text, author name, currently reading, theme colors, categories, post cover images, excerpts, featured posts, and deletion.
+          <div class="help-card">
+            <strong>What makes this feel like a real personal blog</strong><br>
+            Read-only public pages, drafts, archive, search, featured posts, cover images, tags, custom categories, and a private owner mode for writing.
           </div>
           <div class="spacer"></div>
-          <div class="inline-field">
-            <label>Currently reading</label>
-            <input id="quickReadingInput" type="text" placeholder="Change the book title here" />
-            <div class="mini-row">
-              <button class="primary-btn" onclick="saveQuickReading()">Save</button>
-              <button class="ghost-btn" onclick="startNewPost()">Write now</button>
-            </div>
+          <div class="small-note">
+            Visitors can read. Only the owner can unlock writing and settings.
           </div>
         </aside>
       </div>
@@ -634,9 +649,9 @@
           <div class="left">
             <button class="back-btn" onclick="showView('home')">← All writing</button>
           </div>
-          <div class="right">
-            <button class="ghost-btn" id="editPostBtn" onclick="editCurrentPost()">Edit</button>
-            <button class="danger-btn" id="deletePostBtn" onclick="deleteCurrentPost()">Delete</button>
+          <div class="right admin-only hidden" id="postAdminActions">
+            <button class="btn-ghost" id="editPostBtn" onclick="editCurrentPost()">Edit</button>
+            <button class="btn-danger" id="deletePostBtn" onclick="deleteCurrentPost()">Delete</button>
           </div>
         </div>
         <div class="post-hero">
@@ -660,59 +675,77 @@
       </div>
     </section>
 
-    <section id="editorView" class="view editor-view">
+    <section id="archiveView" class="view archive-view">
+      <div class="card content-card">
+        <div class="section-head">
+          <h2>Archive</h2>
+          <div class="small-note">A quick map of your published writing.</div>
+        </div>
+        <div id="archiveList" class="archive-list"></div>
+      </div>
+    </section>
+
+    <section id="editorView" class="view editor-view admin-only hidden">
       <div class="card content-card">
         <div class="section-head">
           <h2 id="editorHeading">New entry</h2>
           <div class="mini-row">
             <button class="back-btn" onclick="showView('home')">Cancel</button>
-            <button class="primary-btn" onclick="savePost()">Publish</button>
+            <button class="btn-ghost" onclick="savePost(true)">Save draft</button>
+            <button class="btn-primary" onclick="savePost(false)">Publish</button>
           </div>
         </div>
-        <div class="editor-grid">
+        <div class="layout-2col">
           <div>
             <div class="field">
               <label>Title</label>
               <input id="inputTitle" type="text" placeholder="What are you writing about?" />
             </div>
-            <div class="row">
+            <div class="field">
+              <label>Subtitle</label>
+              <input id="inputSubtitle" type="text" placeholder="Optional subtitle" />
+            </div>
+            <div class="grid-home" style="grid-template-columns: 1fr 1fr; gap:12px;">
               <div class="field">
                 <label>Category</label>
                 <select id="inputCat"></select>
               </div>
               <div class="field">
                 <label>Language</label>
-                <div class="lang-group">
+                <div class="mini-row">
                   <button class="lang-btn active" id="langEn" onclick="selectLang('en')" type="button">English</button>
                   <button class="lang-btn" id="langBn" onclick="selectLang('bn')" type="button">বাংলা</button>
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="grid-home" style="grid-template-columns: 1fr 1fr; gap:12px;">
               <div class="field">
                 <label>Cover image URL</label>
                 <input id="inputCoverUrl" type="text" placeholder="https://..." />
               </div>
               <div class="field">
-                <label>Or upload cover image</label>
+                <label>Upload cover image</label>
                 <input id="inputCoverFile" type="file" accept="image/*" />
               </div>
             </div>
             <div class="field">
-              <label>Subtitle / short note</label>
-              <input id="inputSubtitle" type="text" placeholder="Optional subtitle for the post" />
-            </div>
-            <div class="field">
               <label>Body</label>
-              <textarea id="inputBody" placeholder="Start writing here.\n\nBlank line = new paragraph\n>> text = blockquote\n## text = heading\n### text = smaller heading\n![caption](image-url) = inline image"></textarea>
-              <div class="small-note">Use <strong>![caption](image-url)</strong> for inline images. You can also use the cover image above.</div>
+              <textarea id="inputBody" class="tall" placeholder="Use paragraphs, headings, blockquotes, and image blocks.\n\nBlank line = paragraph\n>> text = blockquote\n## text = heading\n### text = smaller heading\n![caption](image-url) = image"></textarea>
+              <div class="small-note">For a private journal feel, keep the public post clean and use drafts when needed.</div>
             </div>
           </div>
           <aside>
             <div class="settings-section" style="margin-bottom:0;">
               <h3>Post options</h3>
               <div class="field">
-                <label>Featured post</label>
+                <label>Status</label>
+                <select id="inputStatus">
+                  <option value="published">Published</option>
+                  <option value="draft">Draft</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Featured</label>
                 <select id="inputFeatured">
                   <option value="no">No</option>
                   <option value="yes">Yes</option>
@@ -729,15 +762,14 @@
                 <label>Tags (comma separated)</label>
                 <input id="inputTags" type="text" placeholder="book, essay, bangla" />
               </div>
-              <div class="helper-box">
-                <strong>Useful blog features included</strong><br>
-                Edit, delete, featured posts, pinned posts, custom categories, quick reading, image support, local saving, and export/import.
-              </div>
-              <div class="spacer"></div>
               <div class="field">
-                <label>Import image into body</label>
+                <label>Inline image upload</label>
                 <input id="inputInlineImage" type="file" accept="image/*" />
-                <div class="small-note">Uploads are inserted at the end of the post body as an image block.</div>
+                <div class="small-note">This appends the image into the post body at the end.</div>
+              </div>
+              <div class="help-card">
+                <strong>Better defaults for a personal blog</strong><br>
+                Drafts, publishing status, search, archive, featured posts, read-only public pages, and a private unlock. Those are the basics worth having.
               </div>
             </div>
           </aside>
@@ -745,119 +777,94 @@
       </div>
     </section>
 
-    <section id="settingsView" class="view settings-view">
+    <section id="settingsView" class="view settings-view admin-only hidden">
       <div class="card content-card">
         <div class="section-head">
           <h2>Customize website</h2>
           <div class="mini-row">
-            <button class="ghost-btn" onclick="exportData()">Export data</button>
-            <label class="primary-btn" style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;">
+            <button class="btn-ghost" onclick="exportData()">Export data</button>
+            <label class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;">
               Import data
               <input type="file" id="importFile" accept="application/json" class="hidden" onchange="importData(event)">
             </label>
-            <button class="danger-btn" onclick="resetAllData()">Reset everything</button>
+            <button class="btn-danger" onclick="resetAllData()">Reset</button>
           </div>
         </div>
 
-        <div class="settings-grid">
+        <div class="layout-2col">
           <div>
             <div class="settings-section">
               <h3>Site identity</h3>
-              <div class="row">
-                <div class="field">
-                  <label>Blog name</label>
-                  <input class="setting-input" id="setBlogName" type="text" />
-                </div>
-                <div class="field">
-                  <label>Tagline</label>
-                  <input class="setting-input" id="setBlogTagline" type="text" />
-                </div>
+              <div class="grid-home" style="grid-template-columns: 1fr 1fr; gap:12px;">
+                <div class="field"><label>Blog name</label><input id="setBlogName" type="text" /></div>
+                <div class="field"><label>Tagline</label><input id="setBlogTagline" type="text" /></div>
               </div>
-              <div class="field">
-                <label>Hero title</label>
-                <input class="setting-input" id="setHeroTitle" type="text" />
-              </div>
-              <div class="field">
-                <label>Hero description</label>
-                <textarea class="setting-textarea" id="setHeroDesc"></textarea>
-              </div>
-              <div class="row">
-                <div class="field">
-                  <label>Author name</label>
-                  <input class="setting-input" id="setAuthorName" type="text" />
-                </div>
-                <div class="field">
-                  <label>Currently reading</label>
-                  <input class="setting-input" id="setReading" type="text" />
-                </div>
+              <div class="field"><label>Hero title</label><input id="setHeroTitle" type="text" /></div>
+              <div class="field"><label>Hero description</label><textarea id="setHeroDesc"></textarea></div>
+              <div class="grid-home" style="grid-template-columns: 1fr 1fr; gap:12px;">
+                <div class="field"><label>Author name</label><input id="setAuthorName" type="text" /></div>
+                <div class="field"><label>Currently reading</label><input id="setReading" type="text" /></div>
               </div>
             </div>
 
             <div class="settings-section">
               <h3>Theme</h3>
-              <div class="row">
-                <div class="field">
-                  <label>Accent color</label>
-                  <input class="setting-input" id="setAccent" type="color" />
-                </div>
-                <div class="field">
-                  <label>Background</label>
-                  <input class="setting-input" id="setBg" type="color" />
-                </div>
+              <div class="grid-home" style="grid-template-columns: 1fr 1fr; gap:12px;">
+                <div class="field"><label>Accent</label><input id="setAccent" type="color" /></div>
+                <div class="field"><label>Background</label><input id="setBg" type="color" /></div>
               </div>
-              <div class="field">
-                <label>Surface</label>
-                <input class="setting-input" id="setSurface" type="color" />
-              </div>
+              <div class="field"><label>Surface</label><input id="setSurface" type="color" /></div>
             </div>
           </div>
 
           <div>
             <div class="settings-section">
               <h3>Categories</h3>
-              <div class="row">
-                <div class="field">
-                  <label>Add category</label>
-                  <input class="setting-input" id="newCategoryInput" type="text" placeholder="e.g. Essays" />
-                </div>
-                <div class="field" style="display:flex;align-items:end;">
-                  <button class="primary-btn" style="width:100%;" onclick="addCategory()">Add</button>
-                </div>
+              <div class="grid-home" style="grid-template-columns: 1fr auto; gap:12px;">
+                <div class="field"><label>Add category</label><input id="newCategoryInput" type="text" placeholder="e.g. Essays" /></div>
+                <div class="field" style="align-self:end;"><button class="btn-primary" style="width:100%;" onclick="addCategory()">Add</button></div>
               </div>
-              <div class="category-row" id="categoryList"></div>
+              <div class="chip-row" id="categoryList"></div>
             </div>
 
             <div class="settings-section">
               <h3>About text</h3>
               <div class="field">
-                <label>About lines (one per line)</label>
-                <textarea class="setting-textarea" id="setAboutText"></textarea>
+                <label>One line per paragraph</label>
+                <textarea id="setAboutText"></textarea>
               </div>
             </div>
 
             <div class="settings-section">
-              <h3>Save changes</h3>
-              <div class="small-note">Changes save automatically. Export before a reset if you want a backup.</div>
-              <div class="spacer"></div>
-              <div class="mini-row">
-                <button class="primary-btn" onclick="saveSettings()">Save now</button>
-                <button class="ghost-btn" onclick="reloadSampleData()">Load sample post</button>
+              <h3>Admin password</h3>
+              <div class="field">
+                <label>Change password</label>
+                <input id="setNewPassword" type="password" placeholder="New owner passcode" />
               </div>
+              <div class="small-note">This protects the editor from casual visitors. A static HTML file cannot be truly secret on its own, so for real security you would need a backend and login.</div>
+              <div class="spacer"></div>
+              <button class="btn-primary" onclick="setAdminPassword()">Save password</button>
+            </div>
+
+            <div class="settings-section">
+              <h3>Save</h3>
+              <div class="small-note">Changes save locally in this browser.</div>
+              <div class="spacer"></div>
+              <button class="btn-primary" onclick="saveSettings()">Save site settings</button>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <section id="blogEditorView" class="view editor-view"></section>
   </main>
 
   <footer class="footer" id="footerText"></footer>
 </div>
 
 <script>
-  const STORAGE_KEY = 'husayn_journal_v2';
-  const POST_EDIT_KEY = 'husayn_journal_edit_id';
+  const STORAGE_KEY = 'husayn_journal_v3';
+  const ADMIN_SESSION_KEY = 'husayn_journal_admin_session';
+  const PASS_HASH_KEY = 'husayn_journal_admin_hash';
 
   const DEFAULT_STATE = {
     settings: {
@@ -866,27 +873,14 @@
       heroTitle: "Notes from a reader still figuring things out",
       heroDescription: "Book reviews, translations, politics, and the occasional honest thought. Written in Bangla and English — sometimes both at once.",
       authorName: "Husayn",
-      currentlyReading: "The Book You Are Reading Now",
+      currentlyReading: "Set this in Customize",
       aboutText: [
         "I am a first-year International Relations student at the University of Chittagong. I came from Dhaka.",
-        "I read — Bengali literature, English fiction, the occasional dense non-fiction that makes me feel smart for about two pages. I write here to think more clearly.",
-        "This is my journal. Also my portfolio. Sometimes both at the same time."
+        "I read — Bengali literature, English fiction, and the occasional dense non-fiction that makes me feel smarter for a few pages. I write here to think more clearly.",
+        "This is my journal and portfolio. It is meant to be read by others, but written by me."
       ],
-      categories: [
-        "Book Review",
-        "Summary & Notes",
-        "Personal",
-        "Politics",
-        "Translation",
-        "My Writings",
-        "Essay",
-        "Reflections"
-      ],
-      theme: {
-        bg: "#f7f4ef",
-        surface: "#ffffff",
-        accent: "#8b4513"
-      }
+      categories: ["Book Review", "Summary & Notes", "Personal", "Politics", "Translation", "My Writings", "Essay", "Reflections"],
+      theme: { bg: '#f7f3ed', surface: '#ffffff', accent: '#8b4513' }
     },
     posts: [
       {
@@ -897,34 +891,64 @@
         lang: "en",
         tags: ["intro", "journal"],
         date: new Date().toISOString(),
-        body: "Delete this post and write your own.\n\nClick + Write in the navigation above. Pick a category, choose your language, and start writing.\n\n>> A journal is not about recording what happened. It is about figuring out what it meant.\n\nThis is Husayn's Journal. Welcome.",
-        cover: "",
+        updatedAt: '',
+        body: "Delete this post and write your own.\n\nClick Unlock, set a password, and then use + Write.\n\n>> A journal is not about recording what happened. It is about figuring out what it meant.",
+        cover: '',
         featured: true,
-        pinned: false
+        pinned: false,
+        status: 'published',
+        slug: 'first-entry-why-i-am-writing-this'
       }
     ]
   };
 
   let state = loadState();
-  let currentView = 'home';
   let activeFilter = 'All';
   let activeLang = 'en';
-  let editingPostId = null;
   let currentPostId = null;
+  let editingPostId = null;
+
+  function clone(obj) {
+    return typeof structuredClone === 'function' ? structuredClone(obj) : JSON.parse(JSON.stringify(obj));
+  }
 
   function loadState() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return structuredClone(DEFAULT_STATE);
+      if (!raw) return clone(DEFAULT_STATE);
       const parsed = JSON.parse(raw);
+      const mergedSettings = { ...clone(DEFAULT_STATE.settings), ...(parsed.settings || {}) };
+      mergedSettings.theme = { ...clone(DEFAULT_STATE.settings.theme), ...((parsed.settings || {}).theme || {}) };
+      mergedSettings.categories = Array.isArray(mergedSettings.categories) && mergedSettings.categories.length ? mergedSettings.categories : clone(DEFAULT_STATE.settings.categories);
+      mergedSettings.aboutText = Array.isArray(mergedSettings.aboutText) && mergedSettings.aboutText.length ? mergedSettings.aboutText : clone(DEFAULT_STATE.settings.aboutText);
+      const posts = Array.isArray(parsed.posts) && parsed.posts.length ? parsed.posts : clone(DEFAULT_STATE.posts);
       return {
-        settings: { ...structuredClone(DEFAULT_STATE.settings), ...(parsed.settings || {}) },
-        posts: Array.isArray(parsed.posts) && parsed.posts.length ? parsed.posts : structuredClone(DEFAULT_STATE.posts)
+        settings: mergedSettings,
+        posts: posts.map(normalizePost)
       };
     } catch (e) {
-      console.warn('Could not load saved data, using defaults.', e);
-      return structuredClone(DEFAULT_STATE);
+      console.warn('Storage load failed, using defaults.', e);
+      return clone(DEFAULT_STATE);
     }
+  }
+
+  function normalizePost(post) {
+    return {
+      id: post.id ?? Date.now(),
+      title: post.title || 'Untitled',
+      subtitle: post.subtitle || '',
+      cat: post.cat || 'Personal',
+      lang: post.lang || 'en',
+      tags: Array.isArray(post.tags) ? post.tags : [],
+      date: post.date || new Date().toISOString(),
+      updatedAt: post.updatedAt || '',
+      body: post.body || '',
+      cover: post.cover || '',
+      featured: Boolean(post.featured),
+      pinned: Boolean(post.pinned),
+      status: post.status || 'published',
+      slug: post.slug || slugify(post.title || 'untitled')
+    };
   }
 
   function saveState() {
@@ -932,7 +956,7 @@
     syncUI();
   }
 
-  function saveAndRefresh() {
+  function saveAndRender() {
     saveState();
     renderAll();
   }
@@ -946,6 +970,10 @@
       .replaceAll("'", '&#39;');
   }
 
+  function slugify(text) {
+    return String(text).toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+  }
+
   function fmtDate(d) {
     const dt = new Date(d);
     if (Number.isNaN(dt.getTime())) return '';
@@ -953,44 +981,66 @@
     return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
   }
 
-  function slugify(text) {
-    return text.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+  function readingTime(text) {
+    const words = String(text || '').trim().split(/\s+/).filter(Boolean).length;
+    return Math.max(1, Math.ceil(words / 220));
   }
 
   function excerpt(raw) {
-    const stripped = raw
+    const stripped = String(raw || '')
       .replace(/^>>\s*/gm, '')
       .replace(/^###+\s*/gm, '')
       .replace(/!\[(.*?)\]\((.*?)\)/g, '')
       .replace(/\n+/g, ' ')
       .trim();
     const words = stripped.split(/\s+/).filter(Boolean);
-    return words.slice(0, 32).join(' ') + (words.length > 32 ? '…' : '');
+    return words.slice(0, 34).join(' ') + (words.length > 34 ? '…' : '');
   }
 
-  function renderLanguageBadge(lang) {
-    return lang === 'bn'
-      ? '<span class="badge lang">বাংলা</span>'
-      : '<span class="badge lang">EN</span>';
+  function langBadge(lang) {
+    return lang === 'bn' ? '<span class="badge lang">বাংলা</span>' : '<span class="badge lang">EN</span>';
   }
 
-  function renderPostBody(raw) {
-    const blocks = raw.split(/\n{2,}/).map(s => s.trim()).filter(Boolean);
+  function postBlocks(raw) {
+    const blocks = String(raw || '').split(/\n{2,}/).map(s => s.trim()).filter(Boolean);
     return blocks.map(block => {
       if (/^###\s+/.test(block)) return `<h3>${escapeHTML(block.replace(/^###\s+/, ''))}</h3>`;
       if (/^##\s+/.test(block)) return `<h2>${escapeHTML(block.replace(/^##\s+/, ''))}</h2>`;
       if (/^>>\s+/.test(block)) return `<blockquote>${escapeHTML(block.replace(/^>>\s+/, ''))}</blockquote>`;
       const imgMatch = block.match(/^!\[(.*?)\]\((.*?)\)$/s);
       if (imgMatch) {
-        return `
-          <figure class="inline-image">
-            <img src="${escapeHTML(imgMatch[2])}" alt="${escapeHTML(imgMatch[1])}">
-            ${imgMatch[1] ? `<figcaption>${escapeHTML(imgMatch[1])}</figcaption>` : ''}
-          </figure>
-        `;
+        return `<figure class="inline-image"><img src="${escapeHTML(imgMatch[2])}" alt="${escapeHTML(imgMatch[1])}">${imgMatch[1] ? `<figcaption>${escapeHTML(imgMatch[1])}</figcaption>` : ''}</figure>`;
       }
       return `<p>${escapeHTML(block).replace(/\n/g, '<br>')}</p>`;
     }).join('');
+  }
+
+  function getVisiblePosts(includeDrafts = false) {
+    const q = document.getElementById('searchInput')?.value?.trim().toLowerCase() || '';
+    return state.posts
+      .filter(p => includeDrafts ? true : p.status === 'published')
+      .filter(p => activeFilter === 'All' ? true : p.cat === activeFilter)
+      .filter(p => {
+        if (!q) return true;
+        const hay = [p.title, p.subtitle, p.cat, p.slug, (p.tags || []).join(' '), p.body].join(' ').toLowerCase();
+        return hay.includes(q);
+      })
+      .sort((a, b) => {
+        if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+        if (a.featured !== b.featured) return a.featured ? -1 : 1;
+        return new Date(b.date) - new Date(a.date);
+      });
+  }
+
+  function archiveMap() {
+    const list = getVisiblePosts(true).filter(p => p.status === 'published');
+    const grouped = {};
+    list.forEach(p => {
+      const year = new Date(p.date).getFullYear();
+      grouped[year] = grouped[year] || [];
+      grouped[year].push(p);
+    });
+    return grouped;
   }
 
   function syncUI() {
@@ -1002,15 +1052,14 @@
     document.getElementById('heroDesc').textContent = s.heroDescription;
     document.getElementById('authorNameChip').textContent = s.authorName;
     document.getElementById('currentlyReadingHome').textContent = s.currentlyReading || 'Not set';
-    document.getElementById('postCount').textContent = state.posts.length;
+    document.getElementById('readingBoxText').textContent = s.currentlyReading || 'Not set';
+    document.getElementById('postCount').textContent = state.posts.filter(p => p.status === 'published').length;
     document.getElementById('footerText').textContent = `${s.blogName} — ${s.authorName}`;
     document.title = s.blogName;
     document.documentElement.style.setProperty('--bg', s.theme.bg);
     document.documentElement.style.setProperty('--surface', s.theme.surface);
     document.documentElement.style.setProperty('--surface-strong', s.theme.surface);
     document.documentElement.style.setProperty('--accent', s.theme.accent);
-    document.documentElement.style.setProperty('--accent-2', s.theme.accent);
-    document.getElementById('quickReadingInput').value = s.currentlyReading || '';
 
     document.getElementById('setBlogName').value = s.blogName;
     document.getElementById('setBlogTagline').value = s.blogTagline;
@@ -1020,7 +1069,7 @@
     document.getElementById('setReading').value = s.currentlyReading || '';
     document.getElementById('setAboutText').value = (s.aboutText || []).join('\n\n');
     document.getElementById('setAccent').value = s.theme.accent || '#8b4513';
-    document.getElementById('setBg').value = s.theme.bg || '#f7f4ef';
+    document.getElementById('setBg').value = s.theme.bg || '#f7f3ed';
     document.getElementById('setSurface').value = s.theme.surface || '#ffffff';
 
     const catSel = document.getElementById('inputCat');
@@ -1035,71 +1084,69 @@
       });
       if (s.categories.includes(current)) catSel.value = current;
     }
+
+    const admin = isAdmin();
+    document.getElementById('publicNav').classList.toggle('hidden', admin);
+    document.getElementById('adminNav').classList.toggle('hidden', !admin);
+    document.querySelectorAll('.admin-only').forEach(el => el.classList.toggle('hidden', !admin));
   }
 
-  function buildFilters() {
+  function renderFilters() {
     const bar = document.getElementById('filterBar');
     bar.innerHTML = '';
     ['All', ...state.settings.categories].forEach(cat => {
       const btn = document.createElement('button');
       btn.className = 'filter-btn' + (cat === activeFilter ? ' active' : '');
       btn.textContent = cat;
-      btn.onclick = () => { activeFilter = cat; renderPosts(); buildFilters(); };
+      btn.onclick = () => { activeFilter = cat; renderPosts(); renderFilters(); };
       bar.appendChild(btn);
-    });
-  }
-
-  function sortedPosts() {
-    const list = [...state.posts];
-    return list.sort((a, b) => {
-      if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
-      if (a.featured !== b.featured) return a.featured ? -1 : 1;
-      return new Date(b.date) - new Date(a.date);
     });
   }
 
   function renderPosts() {
     const el = document.getElementById('postsList');
-    const list = sortedPosts().filter(p => activeFilter === 'All' ? true : p.cat === activeFilter);
+    const admin = isAdmin();
+    const posts = getVisiblePosts(admin);
     el.innerHTML = '';
-
-    if (!list.length) {
+    if (!posts.length) {
       el.innerHTML = `
         <div class="empty-state">
-          <strong>Nothing here yet.</strong>
-          Click + Write to publish your first post.
+          <strong>No posts match this view.</strong>
+          ${admin ? 'Try clearing search, or write your first post.' : 'Only published posts are visible here.'}
         </div>
       `;
       return;
     }
-
-    list.forEach(post => {
+    posts.forEach(post => {
       const row = document.createElement('div');
       row.className = 'post-row';
       row.onclick = () => openPost(post.id);
+      const statusBadge = admin && post.status === 'draft' ? '<span class="badge">Draft</span>' : '';
       row.innerHTML = `
         <div class="post-date">${fmtDate(post.date)}</div>
         <div class="post-main">
           <div class="badge-row">
             <span class="badge cat">${escapeHTML(post.cat)}</span>
-            ${renderLanguageBadge(post.lang)}
+            ${langBadge(post.lang)}
             ${post.featured ? '<span class="badge">Featured</span>' : ''}
             ${post.pinned ? '<span class="badge">Pinned</span>' : ''}
+            ${statusBadge}
+            <span class="badge">${readingTime(post.body)} min</span>
             ${(post.tags || []).slice(0,3).map(t => `<span class="badge">#${escapeHTML(t)}</span>`).join('')}
           </div>
           <div class="post-title">${escapeHTML(post.title)}</div>
           ${post.subtitle ? `<p class="post-excerpt"><strong style="font-family:var(--sans);font-size:12px;color:var(--text);">${escapeHTML(post.subtitle)}</strong><br>${escapeHTML(excerpt(post.body))}</p>` : `<p class="post-excerpt">${escapeHTML(excerpt(post.body))}</p>`}
         </div>
-        <div class="post-actions" onclick="event.stopPropagation()">
-          <button class="ghost-btn" onclick="editPost(${post.id})">Edit</button>
-          <button class="danger-btn" onclick="deletePost(${post.id})">Delete</button>
+        <div class="post-actions admin-only ${admin ? '' : 'hidden'}" onclick="event.stopPropagation()">
+          <button class="btn-ghost" onclick="editPost(${post.id})">Edit</button>
+          <button class="btn-danger" onclick="deletePost(${post.id})">Delete</button>
         </div>
       `;
       el.appendChild(row);
     });
   }
 
-  function buildAbout() {
+  function renderAbout() {
     const wrap = document.getElementById('aboutBody');
     wrap.innerHTML = '';
     (state.settings.aboutText || []).forEach(line => {
@@ -1109,7 +1156,7 @@
     });
   }
 
-  function renderCategoryChips() {
+  function renderCategories() {
     const wrap = document.getElementById('categoryList');
     wrap.innerHTML = '';
     state.settings.categories.forEach(cat => {
@@ -1120,25 +1167,92 @@
     });
   }
 
+  function renderArchive() {
+    const wrap = document.getElementById('archiveList');
+    const grouped = archiveMap();
+    const years = Object.keys(grouped).sort((a,b) => b - a);
+    wrap.innerHTML = '';
+    if (!years.length) {
+      wrap.innerHTML = '<div class="empty-state"><strong>No published posts yet.</strong>The archive fills once you publish entries.</div>';
+      return;
+    }
+    years.forEach(year => {
+      const group = grouped[year];
+      const item = document.createElement('div');
+      item.className = 'archive-item';
+      item.onclick = () => { activeFilter = 'All'; showView('home'); };
+      item.innerHTML = `<div><strong>${year}</strong><span>${group.length} published post${group.length > 1 ? 's' : ''}</span></div><div><span>Open on home</span></div>`;
+      wrap.appendChild(item);
+    });
+  }
+
   function renderAll() {
     syncUI();
-    buildFilters();
+    renderFilters();
     renderPosts();
-    buildAbout();
-    renderCategoryChips();
+    renderAbout();
+    renderCategories();
+    renderArchive();
   }
 
   function showView(name) {
-    const map = { home: 'homeView', post: 'postView', about: 'aboutView', editor: 'editorView', settings: 'settingsView' };
+    const map = { home: 'homeView', post: 'postView', about: 'aboutView', archive: 'archiveView', editor: 'editorView', settings: 'settingsView' };
     Object.values(map).forEach(id => document.getElementById(id).classList.remove('active'));
     document.getElementById(map[name]).classList.add('active');
-    currentView = name;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (name === 'home') renderPosts();
-    if (name === 'settings') renderCategoryChips();
+    if (name === 'archive') renderArchive();
+    if (name === 'settings') renderCategories();
+  }
+
+  function isAdmin() {
+    return sessionStorage.getItem(ADMIN_SESSION_KEY) === '1';
+  }
+
+  async function sha256(text) {
+    const bytes = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', bytes);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function unlockAdmin() {
+    const stored = localStorage.getItem(PASS_HASH_KEY);
+    if (!stored) {
+      const first = prompt('Create an owner passcode for this journal:');
+      if (!first) return;
+      const confirmPass = prompt('Confirm the passcode:');
+      if (first !== confirmPass) {
+        alert('Passcodes did not match.');
+        return;
+      }
+      localStorage.setItem(PASS_HASH_KEY, await sha256(first));
+      sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
+      renderAll();
+      showView('home');
+      return;
+    }
+    const pass = prompt('Enter owner passcode:');
+    if (!pass) return;
+    const hash = await sha256(pass);
+    if (hash !== stored) {
+      alert('Wrong passcode.');
+      return;
+    }
+    sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
+    renderAll();
+    showView('home');
+  }
+
+  function lockAdmin() {
+    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    editingPostId = null;
+    currentPostId = null;
+    renderAll();
+    showView('home');
   }
 
   function startNewPost() {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
     editingPostId = null;
     document.getElementById('editorHeading').textContent = 'New entry';
     document.getElementById('inputTitle').value = '';
@@ -1150,7 +1264,8 @@
     document.getElementById('inputTags').value = '';
     document.getElementById('inputFeatured').value = 'no';
     document.getElementById('inputPinned').value = 'no';
-    document.getElementById('inputCat').value = state.settings.categories[0] || '';
+    document.getElementById('inputStatus').value = 'published';
+    document.getElementById('inputCat').value = state.settings.categories[0] || 'Personal';
     selectLang('en');
     showView('editor');
   }
@@ -1170,7 +1285,8 @@
     });
   }
 
-  async function savePost() {
+  async function savePost(forceDraft) {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
     const title = document.getElementById('inputTitle').value.trim();
     const subtitle = document.getElementById('inputSubtitle').value.trim();
     const body = document.getElementById('inputBody').value.trim();
@@ -1178,6 +1294,7 @@
     const coverUrl = document.getElementById('inputCoverUrl').value.trim();
     const featured = document.getElementById('inputFeatured').value === 'yes';
     const pinned = document.getElementById('inputPinned').value === 'yes';
+    const status = forceDraft ? 'draft' : document.getElementById('inputStatus').value;
     const tags = document.getElementById('inputTags').value.split(',').map(s => s.trim()).filter(Boolean);
 
     if (!title) return alert('Title is required.');
@@ -1187,48 +1304,38 @@
     const coverFile = document.getElementById('inputCoverFile').files[0];
     if (coverFile) cover = await fileToDataURL(coverFile);
 
-    const inlineFile = document.getElementById('inputInlineImage').files[0];
     let finalBody = body;
+    const inlineFile = document.getElementById('inputInlineImage').files[0];
     if (inlineFile) {
       const inlineData = await fileToDataURL(inlineFile);
       finalBody += `\n\n![${inlineFile.name}](${inlineData})`;
     }
 
-    if (editingPostId !== null) {
+    const payload = normalizePost({
+      id: editingPostId || Date.now(),
+      title,
+      subtitle,
+      cat,
+      lang: activeLang,
+      tags,
+      date: editingPostId ? (state.posts.find(p => p.id === editingPostId)?.date || new Date().toISOString()) : new Date().toISOString(),
+      updatedAt: editingPostId ? new Date().toISOString() : '',
+      body: finalBody,
+      cover,
+      featured,
+      pinned,
+      status,
+      slug: slugify(title)
+    });
+
+    if (editingPostId) {
       const idx = state.posts.findIndex(p => p.id === editingPostId);
-      if (idx !== -1) {
-        state.posts[idx] = {
-          ...state.posts[idx],
-          title,
-          subtitle,
-          body: finalBody,
-          cat,
-          lang: activeLang,
-          cover,
-          featured,
-          pinned,
-          tags,
-          updatedAt: new Date().toISOString()
-        };
-      }
+      if (idx !== -1) state.posts[idx] = payload;
     } else {
-      state.posts.push({
-        id: Date.now(),
-        title,
-        subtitle,
-        body: finalBody,
-        cat,
-        lang: activeLang,
-        cover,
-        featured,
-        pinned,
-        tags,
-        date: new Date().toISOString(),
-        updatedAt: ''
-      });
+      state.posts.unshift(payload);
     }
 
-    saveAndRefresh();
+    saveAndRender();
     editingPostId = null;
     showView('home');
   }
@@ -1237,6 +1344,7 @@
     const post = state.posts.find(p => p.id === id);
     if (!post) return;
     currentPostId = id;
+    const admin = isAdmin();
     const coverWrap = document.getElementById('postCoverWrap');
     if (post.cover) {
       coverWrap.classList.remove('hidden');
@@ -1245,12 +1353,13 @@
       coverWrap.classList.add('hidden');
       coverWrap.innerHTML = '';
     }
-
     document.getElementById('postBadges').innerHTML = `
       <span class="badge cat">${escapeHTML(post.cat)}</span>
-      ${renderLanguageBadge(post.lang)}
+      ${langBadge(post.lang)}
       ${post.featured ? '<span class="badge">Featured</span>' : ''}
       ${post.pinned ? '<span class="badge">Pinned</span>' : ''}
+      ${post.status === 'draft' && admin ? '<span class="badge">Draft</span>' : ''}
+      <span class="badge">${readingTime(post.body)} min</span>
       ${(post.tags || []).map(t => `<span class="badge">#${escapeHTML(t)}</span>`).join('')}
     `;
     document.getElementById('singleTitle').textContent = post.title;
@@ -1260,12 +1369,15 @@
       <span>${escapeHTML(state.settings.authorName)}</span>
       ${post.updatedAt ? `<span>• Updated ${fmtDate(post.updatedAt)}</span>` : ''}
       ${post.subtitle ? `<span>• ${escapeHTML(post.subtitle)}</span>` : ''}
+      ${post.status === 'draft' && admin ? '<span>• Draft</span>' : ''}
     `;
-    document.getElementById('singleBody').innerHTML = renderPostBody(post.body);
+    document.getElementById('singleBody').innerHTML = postBlocks(post.body);
+    document.getElementById('postAdminActions').classList.toggle('hidden', !admin);
     showView('post');
   }
 
   function editPost(id) {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
     const post = state.posts.find(p => p.id === id);
     if (!post) return;
     editingPostId = id;
@@ -1280,76 +1392,83 @@
     document.getElementById('inputTags').value = (post.tags || []).join(', ');
     document.getElementById('inputFeatured').value = post.featured ? 'yes' : 'no';
     document.getElementById('inputPinned').value = post.pinned ? 'yes' : 'no';
+    document.getElementById('inputStatus').value = post.status || 'published';
     selectLang(post.lang || 'en');
     showView('editor');
   }
 
-  function editCurrentPost() {
-    if (currentPostId == null) return;
-    editPost(currentPostId);
-  }
+  function editCurrentPost() { if (currentPostId != null) editPost(currentPostId); }
+  function deleteCurrentPost() { if (currentPostId != null) deletePost(currentPostId); }
 
   function deletePost(id) {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
     const post = state.posts.find(p => p.id === id);
     if (!post) return;
-    const ok = confirm(`Delete this post?\n\n${post.title}`);
-    if (!ok) return;
+    if (!confirm(`Delete this post?\n\n${post.title}`)) return;
     state.posts = state.posts.filter(p => p.id !== id);
-    saveAndRefresh();
-    if (currentPostId === id) currentPostId = null;
+    saveAndRender();
+    currentPostId = null;
     showView('home');
-  }
-
-  function deleteCurrentPost() {
-    if (currentPostId == null) return;
-    deletePost(currentPostId);
   }
 
   function saveQuickReading() {
     state.settings.currentlyReading = document.getElementById('quickReadingInput').value.trim();
-    saveAndRefresh();
+    saveAndRender();
   }
 
   function saveSettings() {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
     state.settings.blogName = document.getElementById('setBlogName').value.trim() || DEFAULT_STATE.settings.blogName;
     state.settings.blogTagline = document.getElementById('setBlogTagline').value.trim();
     state.settings.heroTitle = document.getElementById('setHeroTitle').value.trim();
     state.settings.heroDescription = document.getElementById('setHeroDesc').value.trim();
     state.settings.authorName = document.getElementById('setAuthorName').value.trim();
     state.settings.currentlyReading = document.getElementById('setReading').value.trim();
-    state.settings.aboutText = document.getElementById('setAboutText').value.split(/\n{2,}|\n/).map(s => s.trim()).filter(Boolean);
+    state.settings.aboutText = document.getElementById('setAboutText').value.split(/\n{2,}/).map(s => s.trim()).filter(Boolean);
     state.settings.theme = {
       bg: document.getElementById('setBg').value,
       surface: document.getElementById('setSurface').value,
       accent: document.getElementById('setAccent').value
     };
-    saveAndRefresh();
-    alert('Settings saved.');
+    saveAndRender();
+    alert('Saved.');
   }
 
   function addCategory() {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
     const input = document.getElementById('newCategoryInput');
     const value = input.value.trim();
     if (!value) return;
-    if (!state.settings.categories.includes(value)) {
-      state.settings.categories.push(value);
-      saveAndRefresh();
-    }
+    if (!state.settings.categories.includes(value)) state.settings.categories.push(value);
     input.value = '';
+    saveAndRender();
   }
 
   function removeCategory(cat) {
-    const hasPosts = state.posts.some(p => p.cat === cat);
-    if (hasPosts) {
-      alert('This category is used by one or more posts. Reassign or delete those posts first.');
+    if (!isAdmin()) return alert('Unlock owner mode first.');
+    const inUse = state.posts.some(p => p.cat === cat);
+    if (inUse) {
+      alert('That category is used by posts. Reassign or delete those posts first.');
       return;
     }
     state.settings.categories = state.settings.categories.filter(c => c !== cat);
-    if (!state.settings.categories.length) state.settings.categories = structuredClone(DEFAULT_STATE.settings.categories);
-    saveAndRefresh();
+    if (!state.settings.categories.length) state.settings.categories = clone(DEFAULT_STATE.settings.categories);
+    saveAndRender();
+  }
+
+  async function setAdminPassword() {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
+    const p1 = document.getElementById('setNewPassword').value.trim();
+    if (!p1) return alert('Enter a new passcode.');
+    const p2 = prompt('Confirm the new passcode:');
+    if (p1 !== p2) return alert('Passcodes did not match.');
+    localStorage.setItem(PASS_HASH_KEY, await sha256(p1));
+    document.getElementById('setNewPassword').value = '';
+    alert('Passcode updated.');
   }
 
   function exportData() {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
     const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1360,18 +1479,18 @@
   }
 
   async function importData(event) {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
     const file = event.target.files?.[0];
     if (!file) return;
-    const text = await file.text();
     try {
-      const parsed = JSON.parse(text);
+      const parsed = JSON.parse(await file.text());
       if (!parsed.settings || !Array.isArray(parsed.posts)) throw new Error('Invalid file');
       state = {
-        settings: { ...structuredClone(DEFAULT_STATE.settings), ...(parsed.settings || {}) },
-        posts: parsed.posts
+        settings: { ...clone(DEFAULT_STATE.settings), ...(parsed.settings || {}) },
+        posts: parsed.posts.map(normalizePost)
       };
-      saveAndRefresh();
-      alert('Data imported.');
+      saveAndRender();
+      alert('Imported.');
     } catch (e) {
       alert('Could not import that file.');
     }
@@ -1379,20 +1498,21 @@
   }
 
   function resetAllData() {
-    const ok = confirm('Reset the whole blog? This removes all posts and customizations from this browser.');
-    if (!ok) return;
+    if (!isAdmin()) return alert('Unlock owner mode first.');
+    if (!confirm('Reset everything in this browser?')) return;
     localStorage.removeItem(STORAGE_KEY);
-    state = structuredClone(DEFAULT_STATE);
-    editingPostId = null;
-    currentPostId = null;
+    state = clone(DEFAULT_STATE);
     activeFilter = 'All';
     activeLang = 'en';
-    saveAndRefresh();
+    editingPostId = null;
+    currentPostId = null;
+    saveAndRender();
     showView('home');
   }
 
   function reloadSampleData() {
-    const sample = {
+    if (!isAdmin()) return alert('Unlock owner mode first.');
+    const sample = normalizePost({
       id: Date.now(),
       title: 'A sample essay entry',
       subtitle: 'A more polished placeholder post.',
@@ -1403,14 +1523,15 @@
       cover: '',
       featured: false,
       pinned: false,
-      body: '## Sample heading\n\nThis is a sample post to show the layout. You can write in paragraphs, use headings, blockquotes, and insert images.\n\n>> A strong personal blog feels clear, calm, and editable.\n\n![Sample image](https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80)'
-    };
+      status: 'published',
+      body: '## Sample heading\n\nThis is a sample post to show the layout. You can write in paragraphs, use headings, add tags, and insert images.\n\n>> A strong personal blog feels clear, calm, and editable.'
+    });
     state.posts.unshift(sample);
-    saveAndRefresh();
+    saveAndRender();
     showView('home');
   }
 
-  function boot() {
+  async function boot() {
     renderAll();
     showView('home');
     document.getElementById('brandBtn').addEventListener('click', () => showView('home'));
@@ -1418,9 +1539,5 @@
       const f = e.target.files?.[0];
       if (f) document.getElementById('inputCoverUrl').value = await fileToDataURL(f);
     });
-  }
-
-  boot();
-</script>
-</body>
-</html>
+    document.getElementById('inputInlineImage').addEventListener('change', async (e) => {
+      const f = e.target.files?.[0];
